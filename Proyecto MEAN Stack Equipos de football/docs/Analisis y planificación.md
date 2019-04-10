@@ -43,9 +43,9 @@
 **Tasks**
 --
 * **Import database** - 15 min.
-  * installing the database in my local instance.
+    * installing the database in my local instance.
 * **Analysis:** - 1 hour.
-  * took notes of the requirements, read the database content and tried some queries with "MySQL Workbench".
+    * took notes of the requirements, read the database content and tried some queries with "MySQL Workbench".
 * **Estimating tasks timing** - 30 min.
 * **Writing down analysis** - 1 hour.
 * **Git and BitBucket repositories** - 15 min.
