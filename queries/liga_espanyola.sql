@@ -3,17 +3,39 @@ SELECT * FROM liga_esp.resultados_deportivos WHERE LOCAL='Real Racing Club' OR V
 
 -- 1) dados 2 equipos, traer toda la información -- (nombre de c/u resultado, fecha, estadio)
 SELECT * FROM liga_esp.resultados_deportivos
-WHERE LOCAL='Real Racing Club' AND VISITANTE='Real Madrid C.F.' 
+WHERE LOCAL='Real Racing Club' AND VISITANTE='Real Madrid C.F.'
 OR LOCAL='Real Madrid C.F.' AND VISITANTE='Real Racing Club';
- 
- -- 2) Dado un equipo traer sus estadísticas: 
- 
- -- A) partidos jugados: 
+
+
+-- pero como será un buscador de texto libre... :
+-- habilitamos "full-text searches" en las columnas LOCAL y VISITANTE
+ALTER TABLE liga_esp.resultados_deportivos
+ADD FULLTEXT (LOCAL);
+
+ALTER TABLE liga_esp.resultados_deportivos
+ADD FULLTEXT (VISITANTE);
+
+-- luego podemos hacer un boolean full-text search:
+SELECT * FROM liga_esp.resultados_deportivos
+WHERE  MATCH (LOCAL) AGAINST ('+real +Racing ' IN BOOLEAN MODE) 
+	AND MATCH (VISITANTE) AGAINST('+Real +Madrid' IN BOOLEAN MODE)
+OR MATCH (LOCAL) AGAINST ('+Real +Madrid' IN BOOLEAN MODE)
+	AND MATCH(VISITANTE) AGAINST ('+Real +Racing' IN BOOLEAN MODE);
+
+
+  ------------------*******************************--------------
+  ------------------*******************************--------------
+  ------------------*******************************--------------
+
+
+ -- 2) Dado un equipo traer sus estadísticas:
+
+ -- A) partidos jugados:
 SELECT COUNT(TEMPORADA)
 FROM liga_esp.resultados_deportivos
 WHERE LOCAL='Real Racing Club' OR VISITANTE='Real Racing Club';
 
--- B) partidos ganados: 
+-- B) partidos ganados:
 SELECT COUNT(TEMPORADA)
 FROM liga_esp.resultados_deportivos
 WHERE LOCAL='Real Racing Club' AND GOL_LOCAL > GOL_VISITANTE
@@ -25,7 +47,7 @@ FROM liga_esp.resultados_deportivos
 WHERE LOCAL='Real Racing Club' AND GOL_LOCAL = GOL_VISITANTE
 OR VISITANTE='Real Racing Club' AND GOL_LOCAL = GOL_VISITANTE;
 
--- D) goles a favor totales: 
+-- D) goles a favor totales:
 WITH total AS(
 	SELECT GOL_LOCAL FROM liga_esp.resultados_deportivos WHERE LOCAL='Real Racing Club' AND TEMPORADA = '1928-29'
 	UNION ALL
@@ -34,7 +56,7 @@ WITH total AS(
 SELECT sum(GOL_LOCAL)
 FROM total
 
--- D) goles en contra por temporada: 
+-- D) goles en contra por temporada:
 WITH total AS(
 	SELECT GOL_VISITANTE FROM liga_esp.resultados_deportivos WHERE LOCAL='Real Racing Club' AND TEMPORADA = '1928-29'
 	UNION ALL
@@ -42,7 +64,3 @@ WITH total AS(
              )
 SELECT sum(GOL_LOCAL)
 FROM total
-
-
-
-

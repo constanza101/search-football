@@ -1,3 +1,16 @@
-<p>
-  landing-page works!
-</p>
+<div class="container text-center">
+  <form class="form-signin" method="get">
+    <img class="mb-4" src="./assets/images/800px-RFEF_logo.png" alt="" width="200" height="200">
+    <h1 class="h3 mb-3 font-weight-normal">Busca los partidos y estadísticas de tu equipo</h1>
+    <label for="inputTeam1" class="sr-only">Equipo 1</label>
+    <input type="text" id="inputTeam1" class="form-control" placeholder="Escribe aquí el nombre de un equipo"  autofocus>
+    <label for="inputTeam2" class="sr-only">Equipo 2</label>
+    <input type="text" id="inputTeam2" class="form-control" placeholder="Escribe aquí el nombre de otro equipo" required>
+    <button (click)="getResults()" class="btn btn-lg btn-primary btn-block" type="submit">buscar</button>
+    <p class="mt-5 mb-3 text-muted">&copy; Constanza Díaz - Full Stack Developer</p>
+  </form>
+
+  <app-search-results>
+  </app-search-results>
+
+</div>

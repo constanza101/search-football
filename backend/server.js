@@ -30,7 +30,12 @@ fs.readFile( connectionData+".json", function (err, data) {
     //GET/matches/:team1/:team2
         app.get("/matches/:team1/:team2", function(req, res){
           var team1 = req.params.team1;
-          var team2 = req.params.team2;
+          var team1 = req.params.team2;
+          //console.log(teamA);
+          //var team1 = teamA.replace("%", " ");
+          //var team2 = teamB.replace("%", " ");
+          console.log(team1);
+
           connection.query("SELECT * FROM liga_esp.resultados_deportivos WHERE LOCAL='"
           +team1+"' AND VISITANTE='"+team2+"' OR LOCAL='"+team2+
           "' AND VISITANTE='"+team1+"';"
@@ -51,6 +56,18 @@ fs.readFile( connectionData+".json", function (err, data) {
                     return res.send(data);
                     });
                 });
+
+
+                //GET/allinfo/
+                    app.get("/teamInfo", function(req, res){
+                  var team = req.params.team;
+                      connection.query("SELECT * FROM liga_esp.resultados_deportivos"
+                        ,function (err, data) {
+                          if(err) throw err;
+                          return res.send(data);
+                          });
+                      });
+
 
 
 
