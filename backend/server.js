@@ -30,15 +30,14 @@ fs.readFile( connectionData+".json", function (err, data) {
     //GET/matches/:team1/:team2
         app.get("/matches/:team1/:team2", function(req, res){
           var team1 = req.params.team1;
-          var team1 = req.params.team2;
-          //console.log(teamA);
-          //var team1 = teamA.replace("%", " ");
-          //var team2 = teamB.replace("%", " ");
-          console.log(team1);
+          var team2 = req.params.team2;
 
-          connection.query("SELECT * FROM liga_esp.resultados_deportivos WHERE LOCAL='"
-          +team1+"' AND VISITANTE='"+team2+"' OR LOCAL='"+team2+
-          "' AND VISITANTE='"+team1+"';"
+          connection.query(
+"SELECT * FROM liga_esp.resultados_deportivos WHERE  MATCH (LOCAL) AGAINST ('"
++team1+"' IN BOOLEAN MODE) AND MATCH (VISITANTE) AGAINST('"
++team2+"' IN BOOLEAN MODE) OR MATCH (LOCAL) AGAINST ('"
++team2+"' IN BOOLEAN MODE) AND MATCH(VISITANTE) AGAINST ('"
++team1+"' IN BOOLEAN MODE);"
             ,function (err, data) {
               if(err) throw err;
               return res.send(data);

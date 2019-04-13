@@ -14,19 +14,16 @@ export class LandingPageComponent implements OnInit {
   }
 
   getResults(){
-    var team1 = $("#inputTeam1").val();
-    var team2 = $("#inputTeam2").val();
-    var stringteam1 = team1.toString()
-    var teamA = stringteam1.replace(" ", "+");
-    //var teamB = team2.replace("%20", " ");
-    console.log(team1)
-    console.log(teamA)
+    var teamA = $("#inputTeam1").val();
+    var teamB = $("#inputTeam2").val();
+    var stringteamA = teamA.toString()
+    var stringteamB = teamB.toString()
 
+    var team1 = stringteamA.replace(" ", "+");
+    var team2 = stringteamA.replace(" ", "+");
+    console.log(team1, team2)
 
-
-
-
-    var urlTeams = "http://localhost:8000/"+team1+"/"+team2;
+    var urlTeams = "http://localhost:8000/matches/"+team1+"/"+team2;
     console.log(urlTeams)
     $.get(urlTeams, (response) => {
       alert(urlTeams)
