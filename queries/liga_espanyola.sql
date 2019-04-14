@@ -17,7 +17,7 @@ ADD FULLTEXT (VISITANTE);
 
 -- luego podemos hacer un boolean full-text search:
 SELECT * FROM liga_esp.resultados_deportivos
-WHERE  MATCH (LOCAL) AGAINST ('+real +Racing ' IN BOOLEAN MODE) 
+WHERE  MATCH (LOCAL) AGAINST ('+real +Racing ' IN BOOLEAN MODE)
 	AND MATCH (VISITANTE) AGAINST('+Real +Madrid' IN BOOLEAN MODE)
 OR MATCH (LOCAL) AGAINST ('+Real +Madrid' IN BOOLEAN MODE)
 	AND MATCH(VISITANTE) AGAINST ('+Real +Racing' IN BOOLEAN MODE);
@@ -29,6 +29,13 @@ OR MATCH (LOCAL) AGAINST ('+Real +Madrid' IN BOOLEAN MODE)
 
 
  -- 2) Dado un equipo traer sus estadísticas:
+
+ -- 2) Dado un equipo traer sus estadísticas:
+ SELECT * FROM liga_esp.resultados_deportivos
+ WHERE MATCH(LOCAL) AGAINST ('+Real+Racing+Club' IN BOOLEAN MODE)
+ OR MATCH(VISITANTE) AGAINST ('+Real+Racing+Club' IN BOOLEAN MODE);
+
+
 
  -- A) partidos jugados:
 SELECT COUNT(TEMPORADA)
@@ -56,7 +63,7 @@ WITH total AS(
 SELECT sum(GOL_LOCAL)
 FROM total
 
--- D) goles en contra por temporada:
+-- E) goles en contra por temporada:
 WITH total AS(
 	SELECT GOL_VISITANTE FROM liga_esp.resultados_deportivos WHERE LOCAL='Real Racing Club' AND TEMPORADA = '1928-29'
 	UNION ALL

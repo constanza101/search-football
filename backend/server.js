@@ -48,29 +48,22 @@ fs.readFile( connectionData+".json", function (err, data) {
           //GET/teamInfo/:team/
               app.get("/teamInfo/:team", function(req, res){
                 var team = req.params.team;
-                connection.query("SELECT * FROM liga_esp.resultados_deportivos WHERE LOCAL='"
-                  +team+"' OR VISITANTE='"+team+"';"
+
+                connection.query(
+                  "SELECT * FROM liga_esp.resultados_deportivos WHERE MATCH(LOCAL) AGAINST ('"
+                  +team+"'IN BOOLEAN MODE)OR MATCH(VISITANTE) AGAINST ('"+team+"' IN BOOLEAN MODE);"
                   ,function (err, data) {
                     if(err) throw err;
                     return res.send(data);
-                    });
-                });
+                  });//connection.query
 
-
-                //GET/allinfo/
-                    app.get("/teamInfo", function(req, res){
-                  var team = req.params.team;
-                      connection.query("SELECT * FROM liga_esp.resultados_deportivos"
-                        ,function (err, data) {
-                          if(err) throw err;
-                          return res.send(data);
-                          });
-                      });
-
+                });  // app.get /teamInfo/:team
 
 
 
     app.listen(8000, function(){
       console.log("Server is listening in port 8000")
     })
-});
+
+
+}); // readFile
