@@ -69,7 +69,6 @@ export class SearchService {
       }) // END GET GAMES PLAYED BY SEASON
 
 //GAMES WON BY SEASON
-      var urlhost = "http://localhost:8000"
       var urlpath2 = "/gamesWonBySeason/+" + team;
       console.log(urlhost + urlpath2)
       $.get(urlhost + urlpath2, (response) => {
@@ -89,7 +88,6 @@ export class SearchService {
       }) // END GET GAMES Won BY SEASON
 
 //GAMES Lost BY SEASON
-      var urlhost = "http://localhost:8000"
       var urlpath3 = "/gamesLostBySeason/+" + team;
       $.get(urlhost + urlpath3, (response) => {
           for (let i = 0; i < response.length; i++) {
@@ -108,7 +106,6 @@ export class SearchService {
 
 
 //GAMES Tied BY SEASON
-      var urlhost = "http://localhost:8000"
       var urlpath4 = "/gamesTiedBySeason/+" + team;
       $.get(urlhost + urlpath4, (response) => {
           for (let i = 0; i < response.length; i++) {
@@ -126,7 +123,6 @@ export class SearchService {
       }) // END GET GAMES Tied BY SEASON
 
 //GOALS FOR BY SEASON
-      var urlhost = "http://localhost:8000"
       var urlpath5 = "/goalsForBySeason/+" + team;
       $.get(urlhost + urlpath5, (response) => {
           for (let i = 0; i < response.length; i++) {
@@ -144,7 +140,6 @@ export class SearchService {
       }) // END GET GOALS FOR BY SEASON
 
 //GOALS AGAINST BY SEASON
-      var urlhost = "http://localhost:8000"
       var urlpath6 = "/goalsAgainstBySeason/+" + team;
       $.get(urlhost + urlpath6, (response) => {
           for (let i = 0; i < response.length; i++) {
