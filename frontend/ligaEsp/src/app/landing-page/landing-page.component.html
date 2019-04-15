@@ -36,7 +36,10 @@
     Temporada: {{game.TEMPORADA}}
  </div>
  <div class="col col-teams-results text-center">
-<a href="#">{{game.LOCAL}}</a>
+<span (click)="toTeamProfile(game.LOCAL)">
+<a>{{game.LOCAL}}</a>
+</span>
+
    {{game.GOL_LOCAL}} -
    {{game.GOL_VISITANTE}}
    <a href="#">{{game.VISITANTE}}</a>

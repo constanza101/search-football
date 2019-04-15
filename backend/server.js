@@ -58,7 +58,7 @@ fs.readFile( connectionData+".json", function (err, data) {
                 });  // app.get /teamInfo/:team
 
 //PLAYED
-        app.get("/GamesPlayedBySeason/:team", function(req, res){
+        app.get("/gamesPlayedBySeason/:team", function(req, res){
               var team = req.params.team;
                   connection.query(
                     "SELECT  COUNT(*) AS gamesPlayed, TEMPORADA as season FROM liga_esp.resultados_deportivos WHERE MATCH(LOCAL) AGAINST ('"+team+"' IN BOOLEAN MODE) OR MATCH(VISITANTE) AGAINST ('"+team+"' IN BOOLEAN MODE)GROUP BY TEMPORADA ORDER BY TEMPORADA;"
@@ -69,7 +69,7 @@ fs.readFile( connectionData+".json", function (err, data) {
             });
 
 //WON
-        app.get("/GamesWonBySeason/:team", function(req, res){
+        app.get("/gamesWonBySeason/:team", function(req, res){
               var team = req.params.team;
                   connection.query(
                     "SELECT  COUNT(*) AS gamesWon, TEMPORADA as season FROM liga_esp.resultados_deportivos WHERE MATCH(LOCAL) AGAINST ('"+team+"' IN BOOLEAN MODE) OR MATCH(VISITANTE) AGAINST ('"+team+"' IN BOOLEAN MODE)GROUP BY TEMPORADA ORDER BY TEMPORADA;"
@@ -80,7 +80,7 @@ fs.readFile( connectionData+".json", function (err, data) {
             });
 
 //LOST
-        app.get("/GamesLostBySeason/:team", function(req, res){
+        app.get("/gamesLostBySeason/:team", function(req, res){
               var team = req.params.team;
                   connection.query(
                     "SELECT COUNT(*) as gamesLost, TEMPORADA AS season FROM liga_esp.resultados_deportivos WHERE MATCH(VISITANTE) AGAINST ('"
@@ -93,7 +93,7 @@ fs.readFile( connectionData+".json", function (err, data) {
             });
 
 //TIED
-        app.get("/GamesTiedBySeason/:team", function(req, res){
+        app.get("/gamesTiedBySeason/:team", function(req, res){
               var team = req.params.team;
                   connection.query(
 "SELECT COUNT(*) as gamesTied, TEMPORADA AS season FROM liga_esp.resultados_deportivos WHERE MATCH(LOCAL) AGAINST ('"
@@ -106,7 +106,7 @@ fs.readFile( connectionData+".json", function (err, data) {
             });
 
 //Goals FOR
-        app.get("/GoalsForBySeason/:team", function(req, res){
+        app.get("/goalsForBySeason/:team", function(req, res){
               var team = req.params.team;
                   connection.query(
 "WITH total AS(SELECT GOL_LOCAL as goalsFor, TEMPORADA as season FROM liga_esp.resultados_deportivos  WHERE MATCH(LOCAL) AGAINST ('"
@@ -118,14 +118,11 @@ fs.readFile( connectionData+".json", function (err, data) {
                     });//connection.query- COUNT GAMES PLAYES BY SEASON
             });
 
-//Goals FOR
-        app.get("/GoalsForBySeason/:team", function(req, res){
+//Goals AGAINST
+        app.get("/goalsAgainstBySeason/:team", function(req, res){
               var team = req.params.team;
                   connection.query(
-"WITH total AS(SELECT GOL_LOCAL as goalsFor, TEMPORADA as season FROM liga_esp.resultados_deportivos  WHERE MATCH(LOCAL) AGAINST ('"
-+team+"' IN BOOLEAN MODE) UNION ALL SELECT GOL_VISITANTE as goalsFor, TEMPORADA as season FROM liga_esp.resultados_deportivos WHERE MATCH (VISITANTE) AGAINST ('"
-+team+"' IN BOOLEAN MODE)) SELECT sum(goalsFor) as goalsFor, season FROM total GROUP BY season"
-                    ,function (err, data) {
+ "WITH total AS( SELECT GOL_LOCAL as goalsAgainst, TEMPORADA FROM liga_esp.resultados_deportivos  WHERE MATCH(VISITANTE) AGAINST ('"+team+"' IN BOOLEAN MODE)   UNION ALL SELECT GOL_VISITANTE as goalsAgainst,  TEMPORADA FROM liga_esp.resultados_deportivos  WHERE MATCH (LOCAL) AGAINST ('"+team+"' IN BOOLEAN MODE))SELECT sum(goalsAgainst) as goalsAgainst,  TEMPORADA as season FROM total GROUP BY season;"                  ,function (err, data) {
                       if(err) throw err;
                       return res.send(data);
                     });//connection.query- COUNT GAMES PLAYES BY SEASON

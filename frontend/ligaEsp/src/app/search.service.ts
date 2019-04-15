@@ -7,12 +7,30 @@ export class SearchService {
 
   gamesInfo: [];
   oneTeamInfo: [];
-  season2829: string[] = [];
-  season2930: string[] = [];
-  season3031: string[] = [];
-  season2829GamesPlayed: number;
-  season2930GamesPlayed: number;
-  season3031GamesPlayed: number;
+  season2829: {} = {
+    "gamesPlayed": 0,
+    "gamesWon":0,
+    "gamesLost": 0,
+    "gamesTied":0,
+    "goalsFor": 0,
+    "goalsAgainst":0
+  };
+  season2930: {} =  {
+    "gamesPlayed": 0,
+    "gamesWon":0,
+    "gamesLost": 0,
+    "gamesTied":0,
+    "goalsFor": 0,
+    "goalsAgainst":0
+  };
+  season3031: {} =  {
+    "gamesPlayed": 0,
+    "gamesWon":0,
+    "gamesLost": 0,
+    "gamesTied":0,
+    "goalsFor": 0,
+    "goalsAgainst":0
+  };
 
   /*  [{
         "TEMPORADA": "1928-29",
@@ -32,37 +50,111 @@ export class SearchService {
   }
 
   get2Teams(team1, team2){
-  var urlTeams = "http://localhost:8000/matches/+"+team1+"/+"+team2;
-  //console.log(urlTeams)
-  $.get(urlTeams, (response) => {
-    console.log(response)
+  var urlhost = "http://localhost:8000"
+  var urlpath = "/matches/+"+team1+"/+"+team2;
+  $.get(urlhost+urlpath, (response) => {
     this.gamesInfo = response.reverse();
     })
   }
 
 
   get1Team(team){
-    var url = "http://localhost:8000/teamInfo/+"+team;
-    $.get(url, (response) => {
-      var response = response;
+
+//GAMES PLAYED BY SEASON
+    var urlhost = "http://localhost:8000"
+    var urlpath = "/gamesPlayedBySeason/+"+team;
+    $.get(urlhost+urlpath, (response) => {
+
       for (let i = 0; i < response.length; i++) {
-          if (response[i]["TEMPORADA"] == "1928-29"){
-            this.season2829.push(response[i])
-          }else if (response[i]["TEMPORADA"] == "1929-30"){
-            this.season2930.push(response[i])
-          } else if (response[i]["TEMPORADA"] == "1930-31"){
-            this.season2930.push(response[i])
+        if(response[i]["season"] == "1928-29"){
+            var gamesPlayed = response[i]["gamesPlayed"];
+            this.season2829["gamesPlayed"] = gamesPlayed
+            console.log(this.season2829)
           }
+          else if(response[i]["season"] == "1929-30"){
+              var gamesPlayed = response[i]["gamesPlayed"];
+              this.season2829["gamesPlayed"] = gamesPlayed
+              console.log(this.season2930)
+            }
+          else if(response[i]["season"] == "1930-31"){
+              var gamesPlayed = response[i]["gamesPlayed"];
+              this.season3031["gamesPlayed"] = gamesPlayed
+              console.log(this.season3031)
+            } else{     }
       }
-      //PLAYED GAMES PER SEASON
-      this.season2829GamesPlayed = this.season2829.length;
-      this.season2930GamesPlayed = this.season2829.length;
-      this.season2930GamesPlayed = this.season2829.length;
+    }) // END GET GAMES PLAYED BY SEASON
+
+//GAMES WON BY SEASON
+        var urlhost = "http://localhost:8000"
+        var urlpath = "/gamesWonBySeason/+"+team;
+        $.get(urlhost+urlpath, (response) => {
+          for (let i = 0; i < response.length; i++) {
+              if(response[i]["season"] == "1928-29"){
+                var gamesWon = response[i]["gamesWon"];
+                this.season2829["gamesWon"] = gamesWon
+                console.log(this.season2829)
+              }
+              else if(response[i]["season"] == "1929-30"){
+                  var gamesWon = response[i]["gamesWon"];
+                  this.season2930["gamesWon"] = gamesWon
+                  console.log(this.season2930)
+                }
+              else if(response[i]["season"] == "1930-31"){
+                  var gamesWon = response[i]["gamesWon"];
+                  this.season3031["gamesWon"] = gamesWon
+                  console.log(this.season3031)
+                }
+          }
+        }) // END GET GAMES Won BY SEASON
+
+//GAMES Lost BY SEASON
+            var urlhost = "http://localhost:8000"
+            var urlpath = "/gamesLostBySeason/+"+team;
+            $.get(urlhost+urlpath, (response) => {
+              for (let i = 0; i < response.length; i++) {
+                  if(response[i]["season"] == "1928-29"){
+                    var gamesLost = response[i]["gamesLost"];
+                    this.season2829["gamesLost"] = gamesLost
+                    console.log(this.season2829)
+                  }
+                  else if(response[i]["season"] == "1929-30"){
+                      var gamesLost = response[i]["gamesLost"];
+                      this.season2930["gamesLost"] = gamesLost
+                      console.log(this.season2930)
+                    }
+                  else if(response[i]["season"] == "1930-31"){
+                      var gamesLost = response[i]["gamesLost"];
+                      this.season3031["gamesLost"] = gamesLost
+                      console.log(this.season3031)
+                    }
+              }
+            }) // END GET GAMES Lost BY SEASON
 
 
+//GAMES Tied BY SEASON
+              var urlhost = "http://localhost:8000"
+              var urlpath = "/gamesTiedBySeason/+"+team;
+              $.get(urlhost+urlpath, (response) => {
+                for (let i = 0; i < response.length; i++) {
+                    if(response[i]["season"] == "1928-29"){
+                      var gamesTied = response[i]["gamesTied"];
+                      this.season2829["gamesTied"] = gamesTied
+                      console.log(this.season2829)
+                    }
+                    else if(response[i]["season"] == "1929-30"){
+                        var gamesTied = response[i]["gamesTied"];
+                        this.season2930["gamesTied"] = gamesTied
+                        console.log(this.season2930)
+                      }
+                    else if(response[i]["season"] == "1930-31"){
+                        var gamesTied = response[i]["gamesTied"];
+                        this.season3031["gamesTied"] = gamesTied
+                        console.log(this.season3031)
+                      }
+                }
+              }) // END GET GAMES Tied BY SEASON
 
-      // console.log(response)
-      })
+
    }
 
 }

@@ -1,73 +1,82 @@
-SELECT * FROM liga_esp.resultados_deportivos;
-SELECT * FROM liga_esp.resultados_deportivos WHERE LOCAL='Real Racing Club' OR VISITANTE='Real Racing Club';
+-- 2) Dado un equipo traer sus estadísticas:
+SELECT *
+FROM   liga_esp.resultados_deportivos
+WHERE  Match(local) against ('+Real+Racing+Club'     IN boolean mode)
+OR     match(visitante) against ('+Real+Racing+Club' IN boolean mode);
 
--- 1) dados 2 equipos, traer toda la información -- (nombre de c/u resultado, fecha, estadio)
-SELECT * FROM liga_esp.resultados_deportivos
-WHERE LOCAL='Real Racing Club' AND VISITANTE='Real Madrid C.F.'
-OR LOCAL='Real Madrid C.F.' AND VISITANTE='Real Racing Club';
+-- A) Games played by season:
+SELECT   Count(*)  AS gamesplayed,
+         temporada AS season
+FROM     liga_esp.resultados_deportivos
+WHERE    Match(local) against ('+Real+Racing+Club'     IN boolean mode)
+OR       match(visitante) against ('+Real+Racing+Club' IN boolean mode)
+GROUP BY temporada
+ORDER BY temporada;
+
+-- B) Games won by season:
+SELECT   Count(*)  AS gameswon,
+         temporada AS season
+FROM     liga_esp.resultados_deportivos
+WHERE    Match(local) against ('+Real+Racing+Club' IN boolean mode)
+AND      gol_local > gol_visitante
+OR       match (visitante) against ('+Real+Racing+Club' IN boolean mode)
+AND      gol_local < gol_visitante
+GROUP BY temporada
+ORDER BY temporada;
+
+-- C) Games lost by season:
+SELECT   Count(*)  AS gameslost,
+         temporada AS season
+FROM     liga_esp.resultados_deportivos
+WHERE    Match(visitante) against ('+Real+Racing+Club' IN boolean mode)
+AND      gol_local > gol_visitante
+OR       match (local) against ('+Real+Racing+Club' IN boolean mode)
+AND      gol_local < gol_visitante
+GROUP BY temporada
+ORDER BY temporada;
+
+-- D) Games tied by season:
+SELECT   Count(*)  AS gamestied,
+         temporada AS season
+FROM     liga_esp.resultados_deportivos
+WHERE    Match(local) against ('+Real+Racing+Club' IN boolean mode)
+AND      gol_local = gol_visitante
+OR       match (visitante) against ('+Real+Racing+Club' IN boolean mode)
+AND      gol_local = gol_visitante
+GROUP BY temporada
+ORDER BY temporada;
+
+-- E) Goals for by season (scored):
+WITH total AS
+(
+       SELECT gol_local AS goalsfor,
+              temporada AS season
+       FROM   liga_esp.resultados_deportivos
+       WHERE  Match(local) against ('+Real+Racing+Club' IN boolean mode)
+       UNION ALL
+       SELECT gol_visitante AS goalsfor,
+              temporada     AS season
+       FROM   liga_esp.resultados_deportivos
+       WHERE  match (visitante) against ('+Real+Racing+Club' IN boolean mode) )
+SELECT   sum(goalsfor) AS goalsfor,
+         season
+FROM     total
+GROUP BY season;
 
 
--- pero como será un buscador de texto libre... :
--- habilitamos "full-text searches" en las columnas LOCAL y VISITANTE
-ALTER TABLE liga_esp.resultados_deportivos
-ADD FULLTEXT (LOCAL);
-
-ALTER TABLE liga_esp.resultados_deportivos
-ADD FULLTEXT (VISITANTE);
-
--- luego podemos hacer un boolean full-text search:
-SELECT * FROM liga_esp.resultados_deportivos
-WHERE  MATCH (LOCAL) AGAINST ('+real +Racing ' IN BOOLEAN MODE)
-	AND MATCH (VISITANTE) AGAINST('+Real +Madrid' IN BOOLEAN MODE)
-OR MATCH (LOCAL) AGAINST ('+Real +Madrid' IN BOOLEAN MODE)
-	AND MATCH(VISITANTE) AGAINST ('+Real +Racing' IN BOOLEAN MODE);
-
-
-  ------------------*******************************--------------
-  ------------------*******************************--------------
-  ------------------*******************************--------------
-
-
- -- 2) Dado un equipo traer sus estadísticas:
-
- -- 2) Dado un equipo traer sus estadísticas:
- SELECT * FROM liga_esp.resultados_deportivos
- WHERE MATCH(LOCAL) AGAINST ('+Real+Racing+Club' IN BOOLEAN MODE)
- OR MATCH(VISITANTE) AGAINST ('+Real+Racing+Club' IN BOOLEAN MODE);
-
-
-
- -- A) partidos jugados:
-SELECT COUNT(TEMPORADA)
-FROM liga_esp.resultados_deportivos
-WHERE LOCAL='Real Racing Club' OR VISITANTE='Real Racing Club';
-
--- B) partidos ganados:
-SELECT COUNT(TEMPORADA)
-FROM liga_esp.resultados_deportivos
-WHERE LOCAL='Real Racing Club' AND GOL_LOCAL > GOL_VISITANTE
-OR VISITANTE='Real Racing Club' AND GOL_LOCAL < GOL_VISITANTE;
-
--- C) partidos empatados:
-SELECT COUNT(TEMPORADA)
-FROM liga_esp.resultados_deportivos
-WHERE LOCAL='Real Racing Club' AND GOL_LOCAL = GOL_VISITANTE
-OR VISITANTE='Real Racing Club' AND GOL_LOCAL = GOL_VISITANTE;
-
--- D) goles a favor totales:
-WITH total AS(
-	SELECT GOL_LOCAL FROM liga_esp.resultados_deportivos WHERE LOCAL='Real Racing Club' AND TEMPORADA = '1928-29'
-	UNION ALL
-	SELECT GOL_VISITANTE FROM liga_esp.resultados_deportivos WHERE VISITANTE = 'Real Racing Club'
-             )
-SELECT sum(GOL_LOCAL)
-FROM total
-
--- E) goles en contra por temporada:
-WITH total AS(
-	SELECT GOL_VISITANTE FROM liga_esp.resultados_deportivos WHERE LOCAL='Real Racing Club' AND TEMPORADA = '1928-29'
-	UNION ALL
-	SELECT GOL_LOCAL FROM liga_esp.resultados_deportivos WHERE VISITANTE = 'Real Racing Club' AND TEMPORADA = '1928-29'
-             )
-SELECT sum(GOL_LOCAL)
-FROM total;
+-- F) Goals against by season (conceded):
+WITH total AS
+(
+       SELECT gol_local AS goalsagainst,
+              temporada
+       FROM   liga_esp.resultados_deportivos
+       WHERE  Match(visitante) against ('+Real+Racing+Club' IN boolean mode)
+       UNION ALL
+       SELECT gol_visitante AS goalsagainst,
+              temporada
+       FROM   liga_esp.resultados_deportivos
+       WHERE  match (local) against ('+Real+Racing+Club' IN boolean mode) )
+SELECT   sum(goalsagainst) AS goalsagainst,
+         temporada         AS season
+FROM     total
+GROUP BY season;

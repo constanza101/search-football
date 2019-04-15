@@ -1,16 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { SearchService } from '../search.service';
+import { Router} from '@angular/router';
 
-/*import { Pipe, PipeTransform } from '@angular/core';
 
-@Pipe({ name: 'reverse' })
-
-export class ReversePipe implements PipeTransform {
-  transform(value) {
-    return value.slice().reverse();
-  }
-}
-*/
 @Component({
   selector: 'app-landing-page',
   templateUrl: './landing-page.component.html',
@@ -19,7 +11,7 @@ export class ReversePipe implements PipeTransform {
 export class LandingPageComponent implements OnInit {
 
 
-  constructor(public _search:SearchService) { }
+  constructor(public _search:SearchService, public _router:Router) { }
 
   ngOnInit() {
   }
@@ -43,10 +35,13 @@ export class LandingPageComponent implements OnInit {
       this._search.get1Team(team1)
     }
     else{alert("introduce al menos un equipo")}
-
-
-
   }
 
+  toTeamProfile(team: string){
+    console.log(team)
+    var teamparam = team.replace(" ", "+");
+    console.log(teamparam)
+    this._router.navigate(["/team",teamparam]);
+  }
 
 }
