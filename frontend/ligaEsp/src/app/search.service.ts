@@ -6,7 +6,9 @@ import { Injectable } from '@angular/core';
 export class SearchService {
 
   gamesInfo: [];
-  oneTeamInfo: [];
+  teamName: string;
+//VALUES grouped by season START in 0
+//later values are replaced if they are != 0
   season2829: {} = {
     "gamesPlayed": 0,
     "gamesWon":0,
@@ -32,19 +34,6 @@ export class SearchService {
     "goalsAgainst":0
   };
 
-  /*  [{
-        "TEMPORADA": "1928-29",
-        "JORNADA": 1,
-        "FECHA": "12/02/1929",
-        "LOCAL": "Real Racing Club",
-        "VISITANTE": "F.C. Barcelona",
-        "GOL_LOCAL": 0,
-        "GOL_VISITANTE": 2,
-        "ESTADIO": "Campos de Sport del Sardinero",
-        "ARBITRO": "MELCON BARTOLOME"
-    }]
-  */
-
   constructor() {
 
   }
@@ -58,133 +47,124 @@ export class SearchService {
   }
 
 
-  get1Team(team){
+  get1Team(team) {
 
 //GAMES PLAYED BY SEASON
-    var urlhost = "http://localhost:8000"
-    var urlpath = "/gamesPlayedBySeason/+"+team;
-    $.get(urlhost+urlpath, (response) => {
+      var urlhost = "http://localhost:8000"
+      var urlpath1 = "/gamesPlayedBySeason/+" + team;
+      $.get(urlhost + urlpath1, (response) => {
 
-      for (let i = 0; i < response.length; i++) {
-        if(response[i]["season"] == "1928-29"){
-            var gamesPlayed = response[i]["gamesPlayed"];
-            this.season2829["gamesPlayed"] = gamesPlayed
+          for (let i = 0; i < response.length; i++) {
+              if (response[i]["season"] == "1928-29") {
+                  var gamesPlayed = response[i]["gamesPlayed"];
+                  this.season2829["gamesPlayed"] = gamesPlayed
+              } else if (response[i]["season"] == "1929-30") {
+                  var gamesPlayed = response[i]["gamesPlayed"];
+                  this.season2930["gamesPlayed"] = gamesPlayed
+              } else if (response[i]["season"] == "1930-31") {
+                  var gamesPlayed = response[i]["gamesPlayed"];
+                  this.season3031["gamesPlayed"] = gamesPlayed
+              } else {}
           }
-          else if(response[i]["season"] == "1929-30"){
-              var gamesPlayed = response[i]["gamesPlayed"];
-              this.season2930["gamesPlayed"] = gamesPlayed
-            }
-          else if(response[i]["season"] == "1930-31"){
-              var gamesPlayed = response[i]["gamesPlayed"];
-              this.season3031["gamesPlayed"] = gamesPlayed
-            } else{     }
-      }
-    }) // END GET GAMES PLAYED BY SEASON
+      }) // END GET GAMES PLAYED BY SEASON
 
 //GAMES WON BY SEASON
-        var urlhost = "http://localhost:8000"
-        var urlpath = "/gamesWonBySeason/+"+team;
-        $.get(urlhost+urlpath, (response) => {
+      var urlhost = "http://localhost:8000"
+      var urlpath2 = "/gamesWonBySeason/+" + team;
+      console.log(urlhost + urlpath2)
+      $.get(urlhost + urlpath2, (response) => {
           for (let i = 0; i < response.length; i++) {
-              if(response[i]["season"] == "1928-29"){
-                var gamesWon = response[i]["gamesWon"];
-                this.season2829["gamesWon"] = gamesWon
-              }
-              else if(response[i]["season"] == "1929-30"){
+              if (response[i]["season"] == "1928-29") {
+                  var gamesWon = response[i]["gamesWon"];
+                  console.log(gamesWon)
+                  this.season2829["gamesWon"] = gamesWon
+              } else if (response[i]["season"] == "1929-30") {
                   var gamesWon = response[i]["gamesWon"];
                   this.season2930["gamesWon"] = gamesWon
-                }
-              else if(response[i]["season"] == "1930-31"){
+              } else if (response[i]["season"] == "1930-31") {
                   var gamesWon = response[i]["gamesWon"];
                   this.season3031["gamesWon"] = gamesWon
-                }
+              }
           }
-        }) // END GET GAMES Won BY SEASON
+      }) // END GET GAMES Won BY SEASON
 
 //GAMES Lost BY SEASON
-            var urlhost = "http://localhost:8000"
-            var urlpath = "/gamesLostBySeason/+"+team;
-            $.get(urlhost+urlpath, (response) => {
-              for (let i = 0; i < response.length; i++) {
-                  if(response[i]["season"] == "1928-29"){
-                    var gamesLost = response[i]["gamesLost"];
-                    this.season2829["gamesLost"] = gamesLost
-                  }
-                  else if(response[i]["season"] == "1929-30"){
-                      var gamesLost = response[i]["gamesLost"];
-                      this.season2930["gamesLost"] = gamesLost
-                    }
-                  else if(response[i]["season"] == "1930-31"){
-                      var gamesLost = response[i]["gamesLost"];
-                      this.season3031["gamesLost"] = gamesLost
-                    }
+      var urlhost = "http://localhost:8000"
+      var urlpath3 = "/gamesLostBySeason/+" + team;
+      $.get(urlhost + urlpath3, (response) => {
+          for (let i = 0; i < response.length; i++) {
+              if (response[i]["season"] == "1928-29") {
+                  var gamesLost = response[i]["gamesLost"];
+                  this.season2829["gamesLost"] = gamesLost
+              } else if (response[i]["season"] == "1929-30") {
+                  var gamesLost = response[i]["gamesLost"];
+                  this.season2930["gamesLost"] = gamesLost
+              } else if (response[i]["season"] == "1930-31") {
+                  var gamesLost = response[i]["gamesLost"];
+                  this.season3031["gamesLost"] = gamesLost
               }
-            }) // END GET GAMES Lost BY SEASON
+          }
+      }) // END GET GAMES Lost BY SEASON
 
 
 //GAMES Tied BY SEASON
-              var urlhost = "http://localhost:8000"
-              var urlpath = "/gamesTiedBySeason/+"+team;
-              $.get(urlhost+urlpath, (response) => {
-                for (let i = 0; i < response.length; i++) {
-                    if(response[i]["season"] == "1928-29"){
-                      var gamesTied = response[i]["gamesTied"];
-                      this.season2829["gamesTied"] = gamesTied
-                    }
-                    else if(response[i]["season"] == "1929-30"){
-                        var gamesTied = response[i]["gamesTied"];
-                        this.season2930["gamesTied"] = gamesTied
-                      }
-                    else if(response[i]["season"] == "1930-31"){
-                        var gamesTied = response[i]["gamesTied"];
-                        this.season3031["gamesTied"] = gamesTied
-                      }
-                }
-              }) // END GET GAMES Tied BY SEASON
+      var urlhost = "http://localhost:8000"
+      var urlpath4 = "/gamesTiedBySeason/+" + team;
+      $.get(urlhost + urlpath4, (response) => {
+          for (let i = 0; i < response.length; i++) {
+              if (response[i]["season"] == "1928-29") {
+                  var gamesTied = response[i]["gamesTied"];
+                  this.season2829["gamesTied"] = gamesTied
+              } else if (response[i]["season"] == "1929-30") {
+                  var gamesTied = response[i]["gamesTied"];
+                  this.season2930["gamesTied"] = gamesTied
+              } else if (response[i]["season"] == "1930-31") {
+                  var gamesTied = response[i]["gamesTied"];
+                  this.season3031["gamesTied"] = gamesTied
+              }
+          }
+      }) // END GET GAMES Tied BY SEASON
 
-  //GOALS FOR BY SEASON
-                  var urlhost = "http://localhost:8000"
-                  var urlpath = "/goalsForBySeason/+"+team;
-                  $.get(urlhost+urlpath, (response) => {
-                    for (let i = 0; i < response.length; i++) {
-                        if(response[i]["season"] == "1928-29"){
-                          var goalsFor = response[i]["goalsFor"];
-                          this.season2829["goalsFor"] = goalsFor
-                        }
-                        else if(response[i]["season"] == "1929-30"){
-                            var goalsFor = response[i]["goalsFor"];
-                            this.season2930["goalsFor"] = goalsFor
-                          }
-                        else if(response[i]["season"] == "1930-31"){
-                            var goalsFor = response[i]["goalsFor"];
-                            this.season3031["goalsFor"] = goalsFor
-                          }
-                    }
-                  }) // END GET GOALS FOR BY SEASON
+//GOALS FOR BY SEASON
+      var urlhost = "http://localhost:8000"
+      var urlpath5 = "/goalsForBySeason/+" + team;
+      $.get(urlhost + urlpath5, (response) => {
+          for (let i = 0; i < response.length; i++) {
+              if (response[i]["season"] == "1928-29") {
+                  var goalsFor = response[i]["goalsFor"];
+                  this.season2829["goalsFor"] = goalsFor
+              } else if (response[i]["season"] == "1929-30") {
+                  var goalsFor = response[i]["goalsFor"];
+                  this.season2930["goalsFor"] = goalsFor
+              } else if (response[i]["season"] == "1930-31") {
+                  var goalsFor = response[i]["goalsFor"];
+                  this.season3031["goalsFor"] = goalsFor
+              }
+          }
+      }) // END GET GOALS FOR BY SEASON
 
-                  //GOALS AGAINST BY SEASON
-                      var urlhost = "http://localhost:8000"
-                      var urlpath = "/goalsAgainstBySeason/+"+team;
-                      $.get(urlhost+urlpath, (response) => {
-                        for (let i = 0; i < response.length; i++) {
-                            if(response[i]["season"] == "1928-29"){
-                              var goalsAgainst = response[i]["goalsAgainst"];
-                              this.season2829["goalsAgainst"] = goalsAgainst
-                              console.log(this.season2829)
-                            }
-                            else if(response[i]["season"] == "1929-30"){
-                                var goalsAgainst = response[i]["goalsAgainst"];
-                                this.season2930["goalsAgainst"] = goalsAgainst
-                                console.log(this.season2930)
-                              }
-                            else if(response[i]["season"] == "1930-31"){
-                                var goalsAgainst = response[i]["goalsAgainst"];
-                                this.season3031["goalsAgainst"] = goalsAgainst
-                                console.log(this.season3031)
-                              }
-                        }
-                      }) // END GET GOALS Against BY SEASON
+//GOALS AGAINST BY SEASON
+      var urlhost = "http://localhost:8000"
+      var urlpath6 = "/goalsAgainstBySeason/+" + team;
+      $.get(urlhost + urlpath6, (response) => {
+          for (let i = 0; i < response.length; i++) {
+              if (response[i]["season"] == "1928-29") {
+                  var goalsAgainst = response[i]["goalsAgainst"];
+                  this.season2829["goalsAgainst"] = goalsAgainst
+                  console.log(this.season2829)
+              } else if (response[i]["season"] == "1929-30") {
+                  var goalsAgainst = response[i]["goalsAgainst"];
+                  this.season2930["goalsAgainst"] = goalsAgainst
+                  console.log(this.season2930)
+              } else if (response[i]["season"] == "1930-31") {
+                  var goalsAgainst = response[i]["goalsAgainst"];
+                  this.season3031["goalsAgainst"] = goalsAgainst
+                  console.log(this.season3031)
+              }
+          }
+      }) // END GET GOALS Against BY SEASON
+      var team = team.replace("+", " ")
+        this.teamName = team;
+  }
 
-   }
-
-}
+  }

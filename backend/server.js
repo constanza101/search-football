@@ -72,7 +72,7 @@ fs.readFile( connectionData+".json", function (err, data) {
         app.get("/gamesWonBySeason/:team", function(req, res){
               var team = req.params.team;
                   connection.query(
-                    "SELECT  COUNT(*) AS gamesWon, TEMPORADA as season FROM liga_esp.resultados_deportivos WHERE MATCH(LOCAL) AGAINST ('"+team+"' IN BOOLEAN MODE) OR MATCH(VISITANTE) AGAINST ('"+team+"' IN BOOLEAN MODE)GROUP BY TEMPORADA ORDER BY TEMPORADA;"
+                    "SELECT COUNT(*) AS gamesWon, TEMPORADA AS season FROM liga_esp.resultados_deportivos WHERE MATCH(LOCAL) AGAINST ('"+team+"' IN BOOLEAN MODE) AND GOL_LOCAL > GOL_VISITANTE  OR MATCH (VISITANTE) AGAINST ('"+team+"' IN BOOLEAN MODE) AND GOL_LOCAL < GOL_VISITANTE GROUP BY TEMPORADA ORDER BY TEMPORADA;"
                     ,function (err, data) {
                       if(err) throw err;
                       return res.send(data);
