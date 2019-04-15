@@ -28,19 +28,17 @@ export class LandingPageComponent implements OnInit {
     }
     else if (team1 == "" && team2 != ""){
       console.log("no hay team1")
-      this._search.get1Team(team2)
+      this.toTeamProfile(team2)
     }
     else if (team2 == "" && team1 != ""){
       console.log("no hay team2")
-      this._search.get1Team(team1)
+      this.toTeamProfile(team1)
     }
     else{alert("introduce al menos un equipo")}
   }
 
   toTeamProfile(team: string){
-    console.log(team)
     var teamparam = team.replace(" ", "+");
-    console.log(teamparam)
     this._router.navigate(["/team",teamparam]);
   }
 

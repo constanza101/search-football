@@ -6,7 +6,7 @@ const routes: Routes = [
 {path: "search", component: LandingPageComponent},
 {path: "team/:teamName", component: TeamComponent},
 {path: "", component: LandingPageComponent},
-//{path: "**", component: LandingPageComponent}
+{path: "**", component: LandingPageComponent}
 ];
 
 @NgModule({
