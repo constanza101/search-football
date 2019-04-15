@@ -69,17 +69,14 @@ export class SearchService {
         if(response[i]["season"] == "1928-29"){
             var gamesPlayed = response[i]["gamesPlayed"];
             this.season2829["gamesPlayed"] = gamesPlayed
-            console.log(this.season2829)
           }
           else if(response[i]["season"] == "1929-30"){
               var gamesPlayed = response[i]["gamesPlayed"];
-              this.season2829["gamesPlayed"] = gamesPlayed
-              console.log(this.season2930)
+              this.season2930["gamesPlayed"] = gamesPlayed
             }
           else if(response[i]["season"] == "1930-31"){
               var gamesPlayed = response[i]["gamesPlayed"];
               this.season3031["gamesPlayed"] = gamesPlayed
-              console.log(this.season3031)
             } else{     }
       }
     }) // END GET GAMES PLAYED BY SEASON
@@ -92,17 +89,14 @@ export class SearchService {
               if(response[i]["season"] == "1928-29"){
                 var gamesWon = response[i]["gamesWon"];
                 this.season2829["gamesWon"] = gamesWon
-                console.log(this.season2829)
               }
               else if(response[i]["season"] == "1929-30"){
                   var gamesWon = response[i]["gamesWon"];
                   this.season2930["gamesWon"] = gamesWon
-                  console.log(this.season2930)
                 }
               else if(response[i]["season"] == "1930-31"){
                   var gamesWon = response[i]["gamesWon"];
                   this.season3031["gamesWon"] = gamesWon
-                  console.log(this.season3031)
                 }
           }
         }) // END GET GAMES Won BY SEASON
@@ -115,17 +109,14 @@ export class SearchService {
                   if(response[i]["season"] == "1928-29"){
                     var gamesLost = response[i]["gamesLost"];
                     this.season2829["gamesLost"] = gamesLost
-                    console.log(this.season2829)
                   }
                   else if(response[i]["season"] == "1929-30"){
                       var gamesLost = response[i]["gamesLost"];
                       this.season2930["gamesLost"] = gamesLost
-                      console.log(this.season2930)
                     }
                   else if(response[i]["season"] == "1930-31"){
                       var gamesLost = response[i]["gamesLost"];
                       this.season3031["gamesLost"] = gamesLost
-                      console.log(this.season3031)
                     }
               }
             }) // END GET GAMES Lost BY SEASON
@@ -139,21 +130,60 @@ export class SearchService {
                     if(response[i]["season"] == "1928-29"){
                       var gamesTied = response[i]["gamesTied"];
                       this.season2829["gamesTied"] = gamesTied
-                      console.log(this.season2829)
                     }
                     else if(response[i]["season"] == "1929-30"){
                         var gamesTied = response[i]["gamesTied"];
                         this.season2930["gamesTied"] = gamesTied
-                        console.log(this.season2930)
                       }
                     else if(response[i]["season"] == "1930-31"){
                         var gamesTied = response[i]["gamesTied"];
                         this.season3031["gamesTied"] = gamesTied
-                        console.log(this.season3031)
                       }
                 }
               }) // END GET GAMES Tied BY SEASON
 
+  //GOALS FOR BY SEASON
+                  var urlhost = "http://localhost:8000"
+                  var urlpath = "/goalsForBySeason/+"+team;
+                  $.get(urlhost+urlpath, (response) => {
+                    for (let i = 0; i < response.length; i++) {
+                        if(response[i]["season"] == "1928-29"){
+                          var goalsFor = response[i]["goalsFor"];
+                          this.season2829["goalsFor"] = goalsFor
+                        }
+                        else if(response[i]["season"] == "1929-30"){
+                            var goalsFor = response[i]["goalsFor"];
+                            this.season2930["goalsFor"] = goalsFor
+                          }
+                        else if(response[i]["season"] == "1930-31"){
+                            var goalsFor = response[i]["goalsFor"];
+                            this.season3031["goalsFor"] = goalsFor
+                          }
+                    }
+                  }) // END GET GOALS FOR BY SEASON
+
+                  //GOALS AGAINST BY SEASON
+                      var urlhost = "http://localhost:8000"
+                      var urlpath = "/goalsAgainstBySeason/+"+team;
+                      $.get(urlhost+urlpath, (response) => {
+                        for (let i = 0; i < response.length; i++) {
+                            if(response[i]["season"] == "1928-29"){
+                              var goalsAgainst = response[i]["goalsAgainst"];
+                              this.season2829["goalsAgainst"] = goalsAgainst
+                              console.log(this.season2829)
+                            }
+                            else if(response[i]["season"] == "1929-30"){
+                                var goalsAgainst = response[i]["goalsAgainst"];
+                                this.season2930["goalsAgainst"] = goalsAgainst
+                                console.log(this.season2930)
+                              }
+                            else if(response[i]["season"] == "1930-31"){
+                                var goalsAgainst = response[i]["goalsAgainst"];
+                                this.season3031["goalsAgainst"] = goalsAgainst
+                                console.log(this.season3031)
+                              }
+                        }
+                      }) // END GET GOALS Against BY SEASON
 
    }
 
