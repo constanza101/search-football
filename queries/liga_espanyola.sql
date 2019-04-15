@@ -70,4 +70,4 @@ WITH total AS(
 	SELECT GOL_LOCAL FROM liga_esp.resultados_deportivos WHERE VISITANTE = 'Real Racing Club' AND TEMPORADA = '1928-29'
              )
 SELECT sum(GOL_LOCAL)
-FROM total
+FROM total;

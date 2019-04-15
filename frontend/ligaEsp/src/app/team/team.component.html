@@ -1,0 +1,55 @@
+<div class="container text-center">
+<div class="row">
+  <div class="col col-12 mt-3">
+    <h2>Liga Española de Fútbol</h2>
+  </div>
+  <div class="col col-12">
+    <img class="mb-4" src="./assets/images/800px-RFEF_logo.png" alt="" width="200" height="200">
+  </div>
+  <div class="col col-12">
+    <p class="mb-3">
+      Busca dos equipos para ver los partidos disputados. <br>
+      Busca un equipo para ver sus estadísticas.
+    </p>
+  </div>
+
+</div>
+
+<div class="row">
+  <form class="form-signin" method="get">
+
+    <label for="inputTeam1" class="sr-only">Equipo 1</label>
+    <input type="text" id="inputTeam1" class="form-control" placeholder="Escribe aquí el nombre de un equipo"  autofocus>
+    <div class="">
+      <h3>vs.</h3>
+    </div>
+    <label for="inputTeam2" class="sr-only">Equipo 2</label>
+    <input type="text" id="inputTeam2" class="form-control" placeholder="Escribe aquí el nombre de otro equipo" required>
+  </form>
+  <button (click)="handleValues()" class="btn btn-lg btn-primary btn-block" type="submit">buscar</button>
+</div>
+
+<div class="searchResults container text-center">
+  <div class="row my-5" *ngFor="let game of _search.gamesInfo">
+    <div class="col-12">
+ <div class="col col-sm-12  col-season">
+    Temporada: {{game.TEMPORADA}}
+ </div>
+ <div class="col col-teams-results text-center">
+<a href="#">{{game.LOCAL}}</a>
+   {{game.GOL_LOCAL}} -
+   {{game.GOL_VISITANTE}}
+   <a href="#">{{game.VISITANTE}}</a>
+
+ </div>
+ <div class="col col-sm-12  col-season">
+   Estadio: {{game.ESTADIO}}
+ </div>
+
+    </div>
+
+  </div>
+
+</div>
+<p class="mt-5 mb-3 text-muted">&copy; Constanza Díaz - Full Stack Developer</p>
+</div>

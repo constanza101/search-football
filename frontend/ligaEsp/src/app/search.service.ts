@@ -7,6 +7,12 @@ export class SearchService {
 
   gamesInfo: [];
   oneTeamInfo: [];
+  season2829: string[] = [];
+  season2930: string[] = [];
+  season3031: string[] = [];
+  season2829GamesPlayed: number;
+  season2930GamesPlayed: number;
+  season3031GamesPlayed: number;
 
   /*  [{
         "TEMPORADA": "1928-29",
@@ -39,7 +45,23 @@ export class SearchService {
     var url = "http://localhost:8000/teamInfo/+"+team;
     $.get(url, (response) => {
       var response = response;
-      console.log(response)
+      for (let i = 0; i < response.length; i++) {
+          if (response[i]["TEMPORADA"] == "1928-29"){
+            this.season2829.push(response[i])
+          }else if (response[i]["TEMPORADA"] == "1929-30"){
+            this.season2930.push(response[i])
+          } else if (response[i]["TEMPORADA"] == "1930-31"){
+            this.season2930.push(response[i])
+          }
+      }
+      //PLAYED GAMES PER SEASON
+      this.season2829GamesPlayed = this.season2829.length;
+      this.season2930GamesPlayed = this.season2829.length;
+      this.season2930GamesPlayed = this.season2829.length;
+
+
+
+      // console.log(response)
       })
    }
 

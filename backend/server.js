@@ -44,22 +44,64 @@ fs.readFile( connectionData+".json", function (err, data) {
               });
           });
 
-
-          //GET/teamInfo/:team/
-              app.get("/teamInfo/:team", function(req, res){
+//GET ALL DATA FROM ONE TEAM ORDERED BY SEASON
+          //GET/getAll/:team/
+              app.get("/getAll/:team", function(req, res){
                 var team = req.params.team;
-
                 connection.query(
                   "SELECT * FROM liga_esp.resultados_deportivos WHERE MATCH(LOCAL) AGAINST ('"
-                  +team+"'IN BOOLEAN MODE)OR MATCH(VISITANTE) AGAINST ('"+team+"' IN BOOLEAN MODE);"
+                  +team+"'IN BOOLEAN MODE)OR MATCH(VISITANTE) AGAINST ('"+team+"' IN BOOLEAN MODE)"
                   ,function (err, data) {
                     if(err) throw err;
                     return res.send(data);
-                  });//connection.query
-
+                  });//connection.query- select *
                 });  // app.get /teamInfo/:team
 
+//PLAYED
+        app.get("/GamesPlayedBySeason/:team", function(req, res){
+              var team = req.params.team;
+                  connection.query(
+                    "SELECT  COUNT(*) AS gamesPlayed, TEMPORADA as season FROM liga_esp.resultados_deportivos WHERE MATCH(LOCAL) AGAINST ('"+team+"' IN BOOLEAN MODE) OR MATCH(VISITANTE) AGAINST ('"+team+"' IN BOOLEAN MODE)GROUP BY TEMPORADA ORDER BY TEMPORADA;"
+                    ,function (err, data) {
+                      if(err) throw err;
+                      return res.send(data);
+                    });//connection.query- COUNT GAMES PLAYES BY SEASON
+            });
 
+//WON
+        app.get("/GamesWonBySeason/:team", function(req, res){
+              var team = req.params.team;
+                  connection.query(
+                    "SELECT  COUNT(*) AS gamesWon, TEMPORADA as season FROM liga_esp.resultados_deportivos WHERE MATCH(LOCAL) AGAINST ('"+team+"' IN BOOLEAN MODE) OR MATCH(VISITANTE) AGAINST ('"+team+"' IN BOOLEAN MODE)GROUP BY TEMPORADA ORDER BY TEMPORADA;"
+                    ,function (err, data) {
+                      if(err) throw err;
+                      return res.send(data);
+                    });//connection.query- COUNT GAMES PLAYES BY SEASON
+            });
+
+//LOST
+        app.get("/GamesLostBySeason/:team", function(req, res){
+              var team = req.params.team;
+                  connection.query(
+                    "SELECT COUNT(*) as gamesLost, TEMPORADA AS season FROM liga_esp.resultados_deportivos WHERE MATCH(VISITANTE) AGAINST ('+Real+Racing+Club' IN BOOLEAN MODE) AND GOL_LOCAL > GOL_VISITANTE OR MATCH (LOCAL) AGAINST ('+Real+Racing+Club' IN BOOLEAN MODE) AND GOL_LOCAL < GOL_VISITANTE GROUP BY TEMPORADA ORDER BY TEMPORADA;"
+                        ,function (err, data) {
+                      if(err) throw err;
+                      return res.send(data);
+                    });//connection.query- COUNT GAMES PLAYES BY SEASON
+            });
+
+
+        app.get("/GamesTiedBySeason/:team", function(req, res){
+              var team = req.params.team;
+                  connection.query(
+
+"SELECT COUNT(*) as gamesTied, TEMPORADA AS season FROM liga_esp.resultados_deportivos WHERE MATCH(LOCAL) AGAINST ('+Real+Racing+Club' IN BOOLEAN MODE) AND GOL_LOCAL = GOL_VISITANTE  OR MATCH (VISITANTE) AGAINST ('+Real+Racing+Club' IN BOOLEAN MODE) AND GOL_LOCAL = GOL_VISITANTE  GROUP BY TEMPORADA ORDER BY TEMPORADA;"
+
+                    ,function (err, data) {
+                      if(err) throw err;
+                      return res.send(data);
+                    });//connection.query- COUNT GAMES PLAYES BY SEASON
+            });
 
     app.listen(8000, function(){
       console.log("Server is listening in port 8000")

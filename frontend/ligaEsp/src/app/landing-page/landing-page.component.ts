@@ -38,9 +38,9 @@ export class LandingPageComponent implements OnInit {
       console.log("no hay team1")
       this._search.get1Team(team2)
     }
-    else if (team2 == ""&& team1 != ""){
+    else if (team2 == "" && team1 != ""){
       console.log("no hay team2")
-      this._search.get1Team(team2)
+      this._search.get1Team(team1)
     }
     else{alert("introduce al menos un equipo")}
 
