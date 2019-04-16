@@ -25,14 +25,14 @@
 
 * For running the Node server "server.js" first save a file named localhost.JSON with the connection details of your database. It should look like this:
 
-  ```javascript
-  {
-    "host"     : "localhost",
-    "user"     : "root",
-    "password" : "my_password",
-    "database" : "db_name"
-  }
-  ```      
+```javascript
+{
+  "host"     : "localhost",
+  "user"     : "root",
+  "password" : "my_password",
+  "database" : "db_name"
+}
+```      
 * run the server by using the following in the command line:
 
         node server.js localhost
