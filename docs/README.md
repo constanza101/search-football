@@ -1,10 +1,11 @@
 * **Index**:
 --
-  * <a href="">How to run the server (Node)</a>
-  * <a href="">Import the data base(MySQL)</a>
-  * <a href="">How to use the API</a>
-  * <a href="">Front-end (Angular 7)</a>
-  * <a href="">How to use the web app from the client side</a>
+  * <a href="">How to run the server (Node).</a>
+  * <a href="">Import the data base(MySQL).</a>
+  * <a href="">How to use the API.</a>
+  * <a href="">Back-end: how it works.</a>
+  * <a href="">Front-end (Angular 7).</a>
+  * <a href="">How to use the web app from the client side.</a>
 
 
 * **How to run the server:**
@@ -56,3 +57,12 @@
 * now you can run the following command and you will not need to restart every time you make a change in server.js:
 
         npm run dev localhost
+
+
+* **Install MyQSL database:**
+--
+* Find the file "resultados_deportivos.sql" in the file named   <a href="">Test</a>.  
+
+
+* **Back End:**
+--
