@@ -1,11 +1,10 @@
 * **Index**:
 --
 
-  *  [How to run the server (Node).]()
-  *  [Import the data base(MySQL).]()
+  *  [How to run the server (Node) (Find below).]()
+  *  [Import the data base(MySQL)(Find below).]()
   *  [How to use the API.](https://bitbucket.org/constanza101/liga_espanyola/src/master/docs/API-docs.md)
-  *  [Front-end (Angular 7).]()
-  *  [How to use the web app from the client side.]()
+  *  [Front-end (Angular 7).](https://bitbucket.org/constanza101/liga_espanyola/src/master/docs/front-end-angular.md)
 
 
 * **How to run the server:**
