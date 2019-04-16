@@ -25,7 +25,8 @@ Returns all the information about the games played by both teams together.
   * **Code:** 200 <br />
   * **Content type:**
 
-    `[
+    ```javascript
+    [
     {   "TEMPORADA": "1928-29",
         "JORNADA": 5,
         "FECHA": "10/03/1929",
@@ -35,7 +36,8 @@ Returns all the information about the games played by both teams together.
         "GOL_VISITANTE": 3,
         "ESTADIO": "Campos de Sport del Sardinero",
         "ARBITRO": "SARACHO"
-    }`
+    }
+    ```
 
 * **Error Response:** N/A
 
