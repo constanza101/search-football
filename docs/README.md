@@ -1,6 +1,5 @@
 * **Index**:
 --
-[an example](http://www.example.com/) inline link.
 
   *  [How to run the server (Node).]()
   *  [Import the data base(MySQL).]()
