@@ -23,7 +23,7 @@ Returns all the information about the games played by both teams together.
 
 * **Success Response:**
 
-  * **Code:** 200 <br />
+  * **Code:** 200
   * **Content type:**
 
 ```javascript
@@ -77,7 +77,7 @@ Returns all the information in the API of one team. (this method is not required
 
 * **Success Response:**
 
-  * **Code:** 200 <br />
+  * **Code:** 200
   * **Content type:**
 
 ```javascript
@@ -115,16 +115,17 @@ The following methods are of the same type and use so we will group the descript
 
 * **URL**
 
-  **/gamesPlayedBySeason/:team**
-  <br> Returns the sum of games played by this team each season.
+  `/gamesPlayedBySeason/:team` -> Returns the sum of games played by this team each season.
 
-  `/gamesWonBySeason/:team`
+  `/gamesWonBySeason/:team` -> Returns the sum of games won by this team each season.
 
-  `/gamesLostBySeason/:team`
+  `/gamesLostBySeason/:team`-> Returns the sum of games lost by this team each season.
 
-  `/gamesTiedBySeason/:team`
+  `/gamesTiedBySeason/:team` -> Returns the sum of games tied for this team each season.
 
+  `/goalsForBySeason/:team` -> Returns the sum of goals this team scored each season.
 
+  `/goalsAgainstBySeason/:team` -> Returns the sum of goals this team  conceded each season.
 
 * **Method:**
 
@@ -140,21 +141,25 @@ The following methods are of the same type and use so we will group the descript
 
 * **Success Response:**
 
-  * **Code:** 200 <br />
+  * **Code:** 200
   * **Content type:**
+
 
 ```javascript
 [
-{   "TEMPORADA": "1928-29",
-    "JORNADA": 5,
-    "FECHA": "10/03/1929",
-    "LOCAL": "Real Racing Club",
-    "VISITANTE": "Real Madrid C.F.",
-    "GOL_LOCAL": 1,
-    "GOL_VISITANTE": 3,
-    "ESTADIO": "Campos de Sport del Sardinero",
-    "ARBITRO": "SARACHO"
-}
+    {
+        "gamesPlayed": 18,
+        "season": "1928-29"
+    },
+    {
+        "gamesPlayed": 18,
+        "season": "1929-30"
+    },
+    {
+        "gamesPlayed": 18,
+        "season": "1930-31"
+    }
+]
 ```
 
 * **Error Response:** N/A
@@ -163,9 +168,9 @@ The following methods are of the same type and use so we will group the descript
 * **Sample Call:**
 
 ```javascript
-getAllInfo(team1){
+get1Team(team1){
 var urlhost = "http://localhost:8000"
-var urlpath = "/getAll/+"+team1
+var urlpath = "/gamesPlayedBySeason/+"+team1
 $.get(urlhost+urlpath, (response) => {
   console.log(response);
   })
