@@ -4,7 +4,6 @@
   *  [How to run the server (Node).]()
   *  [Import the data base(MySQL).]()
   *  [How to use the API.](https://bitbucket.org/constanza101/liga_espanyola/src/master/docs/API-docs.md)
-  *  [Back-end: how it works.]()
   *  [Front-end (Angular 7).]()
   *  [How to use the web app from the client side.]()
 
@@ -33,7 +32,7 @@
   "database" : "db_name"
 }
 ```     
- 
+
 * run the server by using the following in the command line:
 
         node server.js localhost
