@@ -8,7 +8,7 @@ export class SearchService {
   gamesInfo: [];
   teamName: string;
 //VALUES grouped by season START in 0
-//later values are replaced if they are != 0
+// values are later replaced if they are != 0
   season2829: {} = {
     "gamesPlayed": 0,
     "gamesWon":0,
