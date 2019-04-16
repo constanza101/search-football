@@ -32,7 +32,8 @@
   "password" : "my_password",
   "database" : "db_name"
 }
-```      
+```     
+ 
 * run the server by using the following in the command line:
 
         node server.js localhost

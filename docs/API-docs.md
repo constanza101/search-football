@@ -14,7 +14,7 @@ Returns all the information about the games played by both teams together.
 *  **URL Params**
 
   `team1=[string]`
-  
+
   `team1=[string]`
 
   * NOTE: if they have more than 1 word, they should be separated by "+" symbols. Eg. Real+Madrid
@@ -38,7 +38,7 @@ Returns all the information about the games played by both teams together.
     "ESTADIO": "Campos de Sport del Sardinero",
     "ARBITRO": "SARACHO"
 }
-    ```
+```
 
 * **Error Response:** N/A
 
