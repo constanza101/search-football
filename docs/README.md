@@ -1,11 +1,13 @@
 * **Index**:
 --
-  * <a href="">How to run the server (Node).</a>
-  * <a href="">Import the data base(MySQL).</a>
-  * <a href="">How to use the API.</a>
-  * <a href="">Back-end: how it works.</a>
-  * <a href="">Front-end (Angular 7).</a>
-  * <a href="">How to use the web app from the client side.</a>
+[an example](http://www.example.com/) inline link.
+
+  *  [How to run the server (Node).]()
+  *  [Import the data base(MySQL).]()
+  *  [How to use the API.]()
+  *  [Back-end: how it works.]()
+  *  [Front-end (Angular 7).]()
+  *  [How to use the web app from the client side.]()
 
 
 * **How to run the server:**
@@ -61,7 +63,7 @@
 
 * **Install MyQSL database:**
 --
-* Find the file "resultados_deportivos.sql" in the file named   <a href="">Test</a>.  
+* Find the file "resultados_deportivos.sql" in the file named    Test .  
 
 
 * **Back End:**
