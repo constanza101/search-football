@@ -3,11 +3,17 @@
 
 **Analysis**
 ----
-  * **Search web page **
-      * Landing page : - Search bar.
-      * Results page: - List of results.
+  * **Website content**
+  
+      * Landing page with a Search bar.
+      * Results page with a List of results.
 
-* **How to perform searches **
+* **How to perform searches:**
+
+
+There are two imputs. We can type only one team name in one of the inputs, or one team name in EACH one of the inputs, this will bring different types of results: 
+
+
   * Two football teams names:
       * List of results:
           * games played
@@ -29,7 +35,6 @@
     * Show the results grouped by season and in descending order by date.
 
 
-  * ** After reading the database content, the results required and after trying the queries in "MySQL Workbench" tool I decided that I will  make only 2 or 3 types of queries and manage the content in the Front End, to show the statistics as required. This way I will avoid making too many queries to the database.**
 
 
 **Planning**
@@ -42,16 +47,16 @@
 
 **Tasks**
 --
-* **Import database** - 15 min.
+* **Import database** - 
     * installing the database in my local instance.
-* **Analysis:** - 1 hour.
+* **Analysis:** 
     * took notes of the requirements, read the database content and tried some queries with "MySQL Workbench".
-* **Estimating tasks timing** - 30 min.
-* **Writing down analysis** - 1 hour.
-* **Git and BitBucket repositories** - 15 min.
-* **Developing Express Server** - 1 hour.
-* **Back End Documentation** - 1 hour.
-* **Starting Angular project** - 15 min.
-* **planning components** - 15 min.
-* **Adding Styles** - 2 hours.
-* **Front End Documentation** - 2 hours.
+* **Estimating tasks timing** 
+* **Writing down analysis**
+* **Git and BitBucket repositories** 
+* **Developing Express Server**
+* **Back End Documentation** 
+* **Starting Angular project**
+* **planning components** 
+* **Adding Styles** 
+* **Front End Documentation**
